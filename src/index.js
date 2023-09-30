@@ -1,0 +1,50 @@
+const express = require('express');
+const cors =require('cors');
+
+// Para loguear peticiones que recibe el servidor
+var morgan= require('morgan');
+//para trabajar con el sistema de archivos . crear leer etc
+var fs = require('fs');
+//para trabajar con las rutas de archivos y directorios del sistema de archivos.
+var path = require('path');
+
+require('dotenv').config();
+
+const app = express();
+//console.log(process.env);
+//Parseo del post
+//Servidor configuración
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(morgan('dev'));
+app.use(cors());
+// crea un archivo de acceso, create write stream in append mode
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
+//setup logger
+app.use(morgan('combined', {stream: accessLogStream}))
+
+
+
+app.get('/', (req, res) => {
+    // console.log('hubo get');
+    const saludo = 'Hola con run start';
+    res.status(200).json({saludo})
+
+});
+//Rutas de la api
+const v1Publico = require('./v1/rutas/publico');
+const v1Estudiante = require('./v1/rutas/estudiante');
+const v1Materia = require('./v1/rutas/materia')
+const v1Carrera = require('./v1/rutas/carrera')
+
+//middleware
+app.use('/api/v1/publico', v1Publico);
+app.use('/api/v1/estudiante', v1Estudiante);
+app.use('/api/v1/materia', v1Materia);
+app.use('/api/v1/carrera', v1Carrera)
+
+
+//puerto en donde se abre el servidor
+app.listen(process.env.PUERTO, () => {
+    console.log('APP listening on '+ process.env.PUERTO);
+});
