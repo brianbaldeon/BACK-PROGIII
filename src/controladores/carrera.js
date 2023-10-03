@@ -1,19 +1,15 @@
 //buscar por queryparams-- por ID = get(estudiantes/:id
-// La consulta a la base de datos no se hace en el controlador. Solo es la conexión
 
-//me conecto a la base de datos mediante la conexión y declaro la constante.
 const carreraBD = require('../baseDatos/carreraBD');
 
 buscarPorId = async(req, res) => {
-    //try de manejo de errores
     try{
-        // tomamos el ID de la query params para almacenarlo en la constante y hago una validación con el IF
         const idCarrera = req.params.idCarrera;   
         
         if(!idCarrera) {
             res.status(404).json({estado:'FALLO', msj:'Falta el id'});
         }
-        //me conecto a la base para consultar el id en la base de datos
+        
         const carrera = await carreraBD.buscarPorId(idCarrera);
         // buscarPorId ejecuta la sentencia SQL para obtener la info de la BD.
 

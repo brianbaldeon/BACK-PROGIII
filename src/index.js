@@ -11,7 +11,6 @@ var path = require('path');
 require('dotenv').config();
 
 const app = express();
-//console.log(process.env);
 //Parseo del post
 //Servidor configuración
 app.use(express.json());
@@ -26,7 +25,6 @@ app.use(morgan('combined', {stream: accessLogStream}))
 
 
 app.get('/', (req, res) => {
-    // console.log('hubo get');
     const saludo = 'Hola con run start';
     res.status(200).json({saludo})
 

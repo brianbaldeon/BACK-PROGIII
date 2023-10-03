@@ -44,8 +44,6 @@ const nuevo = async (carrera) => {
     const consulta = 'INSERT INTO carrera SET ?';
     const [carreraNueva] = await conexion.query(consulta, carrera);
 
-    // console.log(carreraNueva.insertId);
-
     return buscarPorId(carreraNueva.insertId);
 }
 

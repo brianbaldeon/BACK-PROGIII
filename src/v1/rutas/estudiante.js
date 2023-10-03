@@ -6,13 +6,13 @@ const router = Router();
 //agregar
 router.post('/estudiantes', crear);
 
-// //eliminar
+//eliminar
 router.delete('/estudiantes/:idEstudiante', eliminar);
 
-// //actualizar
+//actualizar
 router.put('/estudiantes/:idEstudiante', update);
 
-// //buscar
+//buscar
 router.get('/estudiantes', buscarTodos);
 
 //buscarPorID

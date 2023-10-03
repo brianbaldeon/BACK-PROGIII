@@ -6,13 +6,13 @@ const router = Router();
 //agregar
 router.post('/carreras', crear);
 
-// //eliminar
+//eliminar
 router.delete('/carreras/:idCarrera', eliminar);
 
-// //actualizar
+//actualizar
 router.put('/carreras/:idCarrera', update);
 
-// //buscar TODOS
+//buscar TODOS
 router.get('/carreras', buscarTodos);
 
 //buscar Por ID

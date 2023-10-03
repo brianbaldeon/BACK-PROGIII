@@ -52,8 +52,6 @@ const nuevo = async (estudiante) => {
     const consulta = 'INSERT INTO estudiante SET ?';
     const [estudianteNuevo] = await conexion.query(consulta, estudiante);
 
-    // console.log(estudianteNuevo.insertId);
-
     return buscarPorId(estudianteNuevo.insertId);
 }
 

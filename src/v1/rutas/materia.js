@@ -6,13 +6,13 @@ const router = Router();
 //agregar
 router.post('/materias', crear);
 
-// //eliminar
+//eliminar
 router.delete('/materias/:idMateria', eliminar);
 
-// //actualizar
+//actualizar
 router.put('/materias/:idMateria', update);
 
-// //buscar
+//buscar
 router.get('/materias', buscarTodos);
 
 //buscarPorID

@@ -44,8 +44,6 @@ const nuevo = async (materia) => {
     const consulta = 'INSERT INTO materia SET ?';
     const [materiaNueva] = await conexion.query(consulta, materia);
 
-    // console.log(materiaNueva.insertId);
-
     return buscarPorId(materiaNueva.insertId);
 }
 
