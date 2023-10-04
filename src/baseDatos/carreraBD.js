@@ -9,7 +9,7 @@ const buscarPorId = async (idCarrera) => {
         ELSE ''
     END) AS modalidad
     FROM Carrera 
-    WHERE activo = 0 AND idCarrera = ?`;
+    WHERE activo = 1 AND idCarrera = ?`;
 
     const [carrera] = await conexion.query(consulta,idCarrera);    
 
@@ -25,7 +25,7 @@ const buscarTodos = async () => {
         ELSE ''
     END) AS modalidad
     FROM Carrera 
-    WHERE activo = 0`;
+    WHERE activo = 1`;
     const [carreras] = await conexion.query(consulta);    
 
     return carreras;
