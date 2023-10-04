@@ -8,7 +8,7 @@
     "desarrollo": "nodemon index.js",
     "start": "node index.js"
   },
-  "author": "brian baldeon",
+  "author": "brian baldeon, cristian pereyra, hernan butler y luis panozzo",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
