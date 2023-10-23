@@ -93,7 +93,7 @@ update = async(req,res)=>{
         const estudianteActualizado = await estudianteBD.update(idEstudiante, body);
         res.send({ status: "OK", data: estudianteActualizado });
     } catch (error) {
-        res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
+        /*res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });*/
     }
 }
 
