@@ -11,8 +11,6 @@ buscarPorId = async(req, res) => {
         }
         
         const materia = await materiaBD.buscarPorId(idMateria);
-        // buscarPorId ejecuta la sentencia SQL para obtener la info de la BD.
-
         res.json({estado:'OK', dato: materia});
 
     }catch (exec){
@@ -88,7 +86,7 @@ update = async(req,res)=>{
         const materiaActualizada= await materiaBD.update(idMateria, body);
         res.send({ status: "OK", data: materiaActualizada });
     } catch (error) {
-        /*res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });*/
+        res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
     }
 }
 

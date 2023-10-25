@@ -18,7 +18,7 @@ const buscarPorId = async (idMateria) => {
 
 const buscarTodos = async () => {
 
-    const consulta = `SELECT  horasSemanales, nombre, 
+    const consulta = `SELECT  idMateria, horasSemanales, nombre, 
     (CASE
         WHEN tipoMateria = 0 THEN 'Virtual'
         WHEN tipoMateria = 1 THEN 'Presencial'

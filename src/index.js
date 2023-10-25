@@ -9,14 +9,13 @@ var fs = require('fs');
 var path = require('path');
 
 require('dotenv').config();
-
 // configuracion de passport
 const passport = require("passport");
 require('./config/passport');
 
 const app = express();
-
-//Parseo del post //Servidor configuración
+//Parseo del post
+//Servidor configuración
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('dev'));
@@ -36,7 +35,6 @@ app.get('/', (req, res) => {
 
 const { esUsuarioBedel } = require('./middlewares/esUsuarioBedel');
 const { esUsuarioDecano } = require('./middlewares/esUsuarioDecano');
-
 //Rutas de la api
 const v1Publico = require('./v1/rutas/publico');
 const v1Auth = require('./v1/rutas/auth');

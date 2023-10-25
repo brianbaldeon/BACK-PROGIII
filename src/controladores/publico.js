@@ -39,10 +39,10 @@ exports.enviarCorreo = async(req,res)=>{
 
     transporter.sendMail(opciones, (error, info) => {
         if(error){
-            const respuesta = 'correo no enviado';
+            const respuesta = 'Correo no enviado';
             res.json({respuesta});
         }else{
-            const respuesta = 'correo enviado';
+            const respuesta = 'Correo enviado';
             res.json({respuesta});
         }
     });

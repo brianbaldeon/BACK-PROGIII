@@ -4,8 +4,8 @@ const buscarPorId = async (idCarrera) => {
 
     const consulta = `SELECT  nombre, 
     (CASE
-        WHEN modalidad = 0 THEN 'Presencial'
-        WHEN modalidad = 1 THEN 'Virtual'
+        WHEN modalidad = 0 THEN 'Virtual'
+        WHEN modalidad = 1 THEN 'Presencial'
         ELSE ''
     END) AS modalidad
     FROM Carrera 
@@ -18,10 +18,10 @@ const buscarPorId = async (idCarrera) => {
 
 const buscarTodos = async () => {
 
-    const consulta = `SELECT  nombre, 
+    const consulta = `SELECT  idCarrera, nombre, 
     (CASE
-        WHEN modalidad = 0 THEN 'Presencial'
-        WHEN modalidad = 1 THEN 'Virtual'
+        WHEN modalidad = 0 THEN 'Virtual'
+        WHEN modalidad = 1 THEN 'Presencial'
         ELSE ''
     END) AS modalidad
     FROM Carrera 
