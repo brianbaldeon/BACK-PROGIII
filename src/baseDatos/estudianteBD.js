@@ -4,12 +4,12 @@ const buscarPorId = async (idEstudiante) => {
 
     const consulta = `SELECT  dni, nombre, apellido,
     (CASE
-        WHEN nacionalidad = 0 THEN 'argentino'
-        WHEN nacionalidad = 1 THEN 'uruguayo'
-        WHEN nacionalidad = 2 THEN 'chileno'
-        WHEN nacionalidad = 3 THEN 'paraguayo'
-        WHEN nacionalidad = 4 THEN 'brasilero'
-        WHEN nacionalidad = 5 THEN 'boliviano'
+        WHEN nacionalidad = 0 THEN 'Argentino'
+        WHEN nacionalidad = 1 THEN 'Uruguayo'
+        WHEN nacionalidad = 2 THEN 'Chileno'
+        WHEN nacionalidad = 3 THEN 'Paraguayo'
+        WHEN nacionalidad = 4 THEN 'Brasilero'
+        WHEN nacionalidad = 5 THEN 'Boliviano'
         ELSE ''
     END) AS nacionalidad 
     FROM estudiante 
@@ -19,17 +19,36 @@ const buscarPorId = async (idEstudiante) => {
 
     return estudiante;
 }
+const buscarNombre = async (nombreEstudiante) => {
+    const consulta = `
+    SELECT idEstudiante,dni, nombre, apellido,
+    (CASE
+        WHEN nacionalidad = 0 THEN 'Argentino'
+        WHEN nacionalidad = 1 THEN 'Uruguayo'
+        WHEN nacionalidad = 2 THEN 'Chileno'
+        WHEN nacionalidad = 3 THEN 'Paraguayo'
+        WHEN nacionalidad = 4 THEN 'Brasilero'
+        WHEN nacionalidad = 5 THEN 'Boliviano'
+        ELSE ''
+    END) AS nacionalidad 
+    FROM estudiante 
+    WHERE activo = 1 AND LOWER(nombre) LIKE LOWER(?)`;
+
+    const [estudiante] = await conexion.query(consulta, `%${nombreEstudiante}%`);
+
+    return estudiante;
+};
 
 const buscarTodos = async () => {
 
     const consulta = `SELECT  idEstudiante,dni, nombre, apellido, fechaNacimiento, correoElectronico, celular, foto, 
     (CASE
-        WHEN nacionalidad = 0 THEN 'argentino'
-        WHEN nacionalidad = 1 THEN 'uruguayo'
-        WHEN nacionalidad = 2 THEN 'chileno'
-        WHEN nacionalidad = 3 THEN 'paraguayo'
-        WHEN nacionalidad = 4 THEN 'brasilero'
-        WHEN nacionalidad = 5 THEN 'boliviano'
+        WHEN nacionalidad = 0 THEN 'Argentino'
+        WHEN nacionalidad = 1 THEN 'Uruguayo'
+        WHEN nacionalidad = 2 THEN 'Chileno'
+        WHEN nacionalidad = 3 THEN 'Paraguayo'
+        WHEN nacionalidad = 4 THEN 'Brasilero'
+        WHEN nacionalidad = 5 THEN 'Boliviano'
         ELSE ''
     END) AS nacionalidad 
     FROM estudiante 
@@ -70,5 +89,6 @@ module.exports = {
     buscarTodos,
     eliminar,
     nuevo,
-    update
+    update,
+    buscarNombre
 }

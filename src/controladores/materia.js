@@ -11,8 +11,6 @@ buscarPorId = async(req, res) => {
         }
         
         const materia = await materiaBD.buscarPorId(idMateria);
-        // buscarPorId ejecuta la sentencia SQL para obtener la info de la BD.
-
         res.json({estado:'OK', dato: materia});
 
     }catch (exec){

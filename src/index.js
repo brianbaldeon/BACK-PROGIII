@@ -9,6 +9,9 @@ var fs = require('fs');
 var path = require('path');
 
 require('dotenv').config();
+// configuracion de passport
+const passport = require("passport");
+require('./config/passport');
 
 const app = express();
 //Parseo del post
@@ -29,18 +32,25 @@ app.get('/', (req, res) => {
     res.status(200).json({saludo})
 
 });
+
+const { esUsuarioBedel } = require('./middlewares/esUsuarioBedel');
+const { esUsuarioDecano } = require('./middlewares/esUsuarioDecano');
 //Rutas de la api
 const v1Publico = require('./v1/rutas/publico');
+const v1Auth = require('./v1/rutas/auth');
 const v1Estudiante = require('./v1/rutas/estudiante');
 const v1Materia = require('./v1/rutas/materia')
 const v1Carrera = require('./v1/rutas/carrera')
 
 //middleware
 app.use('/api/v1/publico', v1Publico);
+app.use('/api/v1/auth', v1Auth);
+app.use('/api/v1/estudiante', [passport.authenticate('jwt', {session: false}), esUsuarioBedel],v1Estudiante);
 app.use('/api/v1/estudiante', v1Estudiante);
 app.use('/api/v1/materia', v1Materia);
 app.use('/api/v1/carrera', v1Carrera)
-
+/*app.use('/api/v1/estadistica', v1Estadistica);*/
+/*app.use ('/api/v1/estadistica', [passport.authenticate('jwt', {session: false}), esUsuarioDecano],v1Estadistica )*/
 
 //puerto en donde se abre el servidor
 app.listen(process.env.PUERTO, () => {
