@@ -116,7 +116,7 @@ update = async(req,res)=>{
         const estudianteActualizado = await estudianteBD.update(idEstudiante, body);
         res.status(200).json({ status: "OK", data: estudianteActualizado });
     } catch (error) {
-        res.status(error?.status || 500).send({ status: "Fallo", mje:'Hubo un error'});
+        /*res.status(error?.status || 500).send({ status: "Fallo", mje:'Hubo un error'})*/;
     }
 }
 
