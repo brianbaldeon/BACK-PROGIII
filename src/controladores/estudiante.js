@@ -64,7 +64,9 @@ eliminar = async (req, res) => {
 
 crear = async (req, res) => {
 
-    const {dni, nombre, apellido, fechaNacimiento, nacionalidad, correoElectronico, celular, foto} = req.body;
+    const {dni, nombre, apellido, fechaNacimiento, nacionalidad, correoElectronico, celular} = req.body;
+    // obtengo el archivo que manda el cliente
+    const file = req.file;
 
     if(!dni || !nombre || !apellido || !nacionalidad || !correoElectronico){
         res.status(404).json({estado:'FALLA', msj:'Faltan datos obligatorios'});
@@ -77,7 +79,7 @@ crear = async (req, res) => {
             nacionalidad:nacionalidad, 
             correoElectronico:correoElectronico, 
             celular:celular, 
-            foto:foto
+             foto:file.filename // guardo en la base de datos el nombre del archivo
         }; 
 
 

@@ -33,6 +33,12 @@ app.get('/', (req, res) => {
 
 });
 
+// Ruta pública para acceder a los imagenes
+app.get('/archivos/:nombreArchivo', (req, res) => {
+    const nombreArchivo = req.params.nombreArchivo;
+    res.sendFile(path.join(__dirname, 'archivos', nombreArchivo));
+});
+
 const { esUsuarioBedel } = require('./middlewares/esUsuarioBedel');
 const { esUsuarioDecano } = require('./middlewares/esUsuarioDecano');
 //Rutas de la api
