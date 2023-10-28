@@ -16,6 +16,7 @@ require('./config/passport');
 const app = express();
 //Parseo del post
 //Servidor configuración
+app.use('/archivos', express.static('/archivos/:nombreArchivo'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('dev'));
