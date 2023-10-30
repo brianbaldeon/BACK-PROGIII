@@ -16,7 +16,7 @@ router.put('/estudiantes/:idEstudiante', update);
 router.get('/estudiantes', buscarTodos);
 
 //Buscar por nombre
-router.get('/estudiantes/:nombreEstudiante', buscarNombre)
+router.get('/estudiantes/search/:nombreEstudiante', buscarNombre)
 
 //buscarPorID
 router.get('/estudiantes/:idEstudiante', buscarPorId);

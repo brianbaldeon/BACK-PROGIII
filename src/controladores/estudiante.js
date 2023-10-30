@@ -36,10 +36,14 @@ buscarNombre = async (req, res) => {
   };
 
 buscarTodos = async(req, res) => {
-    try{
-        const estudiantes = await estudianteBD.buscarTodos();
 
-        res.json({estado:'OK', dato:estudiantes});
+    const page = req.query.page
+    const limit = req.query.limit
+    console.log({page, limit})
+    try{
+        const [estudiantes, totalResultados] = await estudianteBD.buscarTodos({page, limit});
+        const paginasTotales = Math.ceil(totalResultados / limit)
+        res.json({estado:'OK',totalResultados, dato:estudiantes});
 
     }catch (exec){
         throw exec;
@@ -66,16 +70,16 @@ crear = async (req, res) => {
 
     const {dni, nombre, apellido, fechaNacimiento, nacionalidad, correoElectronico, celular, foto} = req.body;
 
-    if(!dni || !nombre || !apellido || !nacionalidad || !correoElectronico){
+    if(!dni || !nombre || !apellido || !nacionalidad || !correoElectronico.includes('@')){
         res.status(404).json({estado:'FALLA', msj:'Faltan datos obligatorios'});
     }else{
         const estudiante = {
             dni:dni, 
-            nombre:nombre, 
-            apellido:apellido, 
+            nombre: mayusMinusculaNombreCompleto(nombre),
+            apellido: mayusMinusculaNombreCompleto(apellido),
             fechaNacimiento:fechaNacimiento, 
             nacionalidad:nacionalidad, 
-            correoElectronico:correoElectronico, 
+            correoElectronico:todoMinuscula(correoElectronico), 
             celular:celular, 
             foto:foto
         }; 
@@ -89,6 +93,24 @@ crear = async (req, res) => {
         }
     }
 }
+function mayusMinusculaNombreCompleto(nombreCompleto) {
+    if (!nombreCompleto) {
+        return '';
+    }
+
+    const partes = nombreCompleto.split(" ");
+    const nombreFormateado = partes
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()) 
+        .join(" ");
+
+    return nombreFormateado;
+}
+function todoMinuscula(correo) {
+    if (!correo) {
+        return '';
+    }
+    return correo.toLowerCase();
+}
 
 update = async(req,res)=>{
     const body = req.body
@@ -97,7 +119,7 @@ update = async(req,res)=>{
     // Agregar validación a Carrera y Materia UPDATE
     const {dni, nombre, apellido} = req.body
 
-    if (!dni) return res.status(409).json({status:"Fallo", mje:"Falta el dni"})
+    if (!dni || !nombre || !apellido) return res.status(409).json({status:"Fallo", mje:"Faltan datos obligatorios"})
 
     if (!idEstudiante) {
         res
@@ -109,10 +131,13 @@ update = async(req,res)=>{
                 }
             });
     }
+    body.nombre = mayusMinusculaNombreCompleto(body.nombre);
+    body.apellido = mayusMinusculaNombreCompleto(body.apellido);
+    body.correoElectronico = todoMinuscula(body.correoElectronico);
 
     try {
         const estudianteActualizado = await estudianteBD.update(idEstudiante, body);
-        res.status(200).json({ status: "OK", data: estudianteActualizado });
+        res.status(200).json({ status: "OK",msj:'Estudiante modificado correctamente', data: estudianteActualizado });
     } catch (error) {
         res.status(error?.status || 500).send({ status: "Fallo", mje:'Hubo un error'});
     }

@@ -8,6 +8,7 @@ const esUsuarioBedel = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // El token es enviado utilizando "Bearer"
 
+    console.log(authHeader);
     if (!token) {
         return res.sendStatus(401); // No autorizado
     }
@@ -18,10 +19,10 @@ const esUsuarioBedel = async (req, res, next) => {
         }
 
         const data = await usuarioDB.buscarPorId(usuario.idUsuario);
-
+        console.log({data})
          // tipoUsuario = 1 | bedel
        
-        if (data.tipoUsuario != 1) {
+        if (data.tipoUsuario != 0) {
             return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
         }
 

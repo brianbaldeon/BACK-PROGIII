@@ -16,6 +16,7 @@ require('./config/passport');
 const app = express();
 //Parseo del post
 //Servidor configuración
+app.use('/archivos', express.static('/archivos/:nombreArchivo'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('dev'));
@@ -46,7 +47,7 @@ const v1Carrera = require('./v1/rutas/carrera')
 app.use('/api/v1/publico', v1Publico);
 app.use('/api/v1/auth', v1Auth);
 app.use('/api/v1/estudiante', [passport.authenticate('jwt', {session: false}), esUsuarioBedel],v1Estudiante);
-app.use('/api/v1/estudiante', v1Estudiante);
+// app.use('/api/v1/estudiante', v1Estudiante);
 app.use('/api/v1/materia', v1Materia);
 app.use('/api/v1/carrera', v1Carrera)
 /*app.use('/api/v1/estadistica', v1Estadistica);*/
