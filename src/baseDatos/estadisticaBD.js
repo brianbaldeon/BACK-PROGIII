@@ -6,12 +6,12 @@ const estadistica = async () => {
     
     const [results] = await conexion.query(consulta);    
     
-    console.log(results);
-    const estudiantes = results[1][0].estudiantes;
-  
+        const cantidadInscriptos = results[0][0].cantidadInscriptos;
+        const mayoresDe = results[0][1].mayoresDe;
 
-    const datos = {
-     estudiantes: estudiantes
+        const datos = {
+            estudiantecarrera: cantidadInscriptos,
+            estudiantes: mayoresDe
     }
 
     return datos;

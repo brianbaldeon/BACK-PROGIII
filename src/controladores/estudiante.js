@@ -68,7 +68,9 @@ eliminar = async (req, res) => {
 
 crear = async (req, res) => {
 
-    const {dni, nombre, apellido, fechaNacimiento, nacionalidad, correoElectronico, celular, foto} = req.body;
+    const {dni, nombre, apellido, fechaNacimiento, nacionalidad, correoElectronico, celular} = req.body;
+    // obtengo el archivo que manda el cliente
+    const file = req.file;
 
     if(!dni || !nombre || !apellido || !nacionalidad || !correoElectronico.includes('@')){
         res.status(404).json({estado:'FALLA', msj:'Faltan datos obligatorios'});
@@ -81,7 +83,7 @@ crear = async (req, res) => {
             nacionalidad:nacionalidad, 
             correoElectronico:todoMinuscula(correoElectronico), 
             celular:celular, 
-            foto:foto
+             foto:file.filename // guardo en la base de datos el nombre del archivo
         }; 
 
 
@@ -139,7 +141,7 @@ update = async(req,res)=>{
         const estudianteActualizado = await estudianteBD.update(idEstudiante, body);
         res.status(200).json({ status: "OK",msj:'Estudiante modificado correctamente', data: estudianteActualizado });
     } catch (error) {
-        res.status(error?.status || 500).send({ status: "Fallo", mje:'Hubo un error'});
+        /*res.status(error?.status || 500).send({ status: "Fallo", mje:'Hubo un error'})*/;
     }
 }
 
