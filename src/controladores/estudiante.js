@@ -75,6 +75,7 @@ crear = async (req, res) => {
     if(!dni || !nombre || !apellido || !nacionalidad || !correoElectronico.includes('@')){
         res.status(404).json({estado:'FALLA', msj:'Faltan datos obligatorios'});
     }else{
+        
         const estudiante = {
             dni:dni, 
             nombre: mayusMinusculaNombreCompleto(nombre),
@@ -83,9 +84,10 @@ crear = async (req, res) => {
             nacionalidad:nacionalidad, 
             correoElectronico:todoMinuscula(correoElectronico), 
             celular:celular, 
-             foto:file.filename // guardo en la base de datos el nombre del archivo
+            //  foto:file.filename // guardo en la base de datos el nombre del archivo
         }; 
-
+        if (file) estudiante.foto = file.filename;
+        else estudiante.foto='default.jpg'
 
         try{
             const estudianteNuevo = await estudianteBD.nuevo(estudiante);
