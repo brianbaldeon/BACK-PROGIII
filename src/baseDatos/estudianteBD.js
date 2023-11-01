@@ -73,7 +73,7 @@ const update = async(idEstudiante ,{dni,nombre,apellido,fechaNacimiento,nacional
 
 
 
-const buscarNombre = async (nombreEstudiante) => {
+const buscarNombre = async (nombreApellidoEstudiante) => {
     const consulta = `
     SELECT  idEstudiante,dni, nombre, apellido, fechaNacimiento, correoElectronico, celular, foto, 
     (CASE
@@ -86,11 +86,11 @@ const buscarNombre = async (nombreEstudiante) => {
         ELSE ''
         END) AS nacionalidad 
     FROM estudiante 
-    WHERE activo = 1 AND LOWER(nombre) LIKE LOWER(?)`;
+    WHERE activo = 1 AND (LOWER(nombre) LIKE LOWER(?) OR LOWER(apellido) LIKE LOWER(?))`;
 
-    const [estudiante] = await conexion.query(consulta, `%${nombreEstudiante}%`);
+    const [estudiantes] = await conexion.query(consulta, [`%${nombreApellidoEstudiante}%`, `%${nombreApellidoEstudiante}%`]);
 
-    return estudiante;
+    return estudiantes;
 };
 module.exports = {
     buscarPorId,
