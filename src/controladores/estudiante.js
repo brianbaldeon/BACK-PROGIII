@@ -147,6 +147,23 @@ update = async(req,res)=>{
     }
 }
 
+buscarDni = async (req, res) => {
+    try {
+      const dniEstudiante = req.params.dniEstudiante;
+  
+      if (!dniEstudiante) {
+        res.status(400).json({ estado: 'FALLO', msj: 'Falta el dni del estudiante' });
+      }
+  
+      const estudiante = await estudianteBD.buscarDni(dniEstudiante);
+      res.json({ estado: 'OK', dato: estudiante });
+    
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ estado: 'FALLO', msj: 'Error en el servidor' });
+    }
+  };
+
 
 module.exports = {
     buscarPorId,
@@ -154,5 +171,7 @@ module.exports = {
     eliminar,
     crear, 
     update,
-    buscarNombre
+    buscarNombre,
+    buscarDni
+
 }

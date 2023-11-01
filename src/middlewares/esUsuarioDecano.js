@@ -22,7 +22,7 @@ const esUsuarioDecano = async (req, res, next) => {
          
         // tipoUsuario = 2 | decano
        
-        if (data.tipoUsuario != 2) {
+        if (data.tipoUsuario != 1) {
             return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
         }
 
