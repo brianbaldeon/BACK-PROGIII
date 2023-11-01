@@ -10,7 +10,7 @@ buscarPorId = async(req, res) => {
             res.status(404).json({estado:'FALLO', msj:'Falta el id'});
         }
         
-        const carrera = await carreraBD.buscarPorId(idCarrera);
+        const [carrera] = await carreraBD.buscarPorId(idCarrera);
         // buscarPorId ejecuta la sentencia SQL para obtener la info de la BD.
 
         res.json({estado:'OK', dato: carrera});

@@ -10,7 +10,7 @@ buscarPorId = async(req, res) => {
             res.status(404).json({estado:'FALLO', msj:'Falta el id'});
         }
         
-        const materia = await materiaBD.buscarPorId(idMateria);
+        const [materia] = await materiaBD.buscarPorId(idMateria);
         res.json({estado:'OK', dato: materia});
 
     }catch (exec){
