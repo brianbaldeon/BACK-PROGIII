@@ -13,8 +13,8 @@ buscarPorId = async(req, res) => {
         const [materia] = await materiaBD.buscarPorId(idMateria);
         res.json({estado:'OK', dato: materia});
 
-    }catch (exec){
-        throw exec;
+    }catch (error){
+        res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
     }
 }
 
@@ -39,7 +39,7 @@ eliminar = async (req, res) => {
             await materiaBD.eliminar(idMateria);
             res.status(200).json({estado:'OK', msj:'Materia eliminada'});
         }catch (error){
-            throw exec;
+            res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
         }
     }
 }

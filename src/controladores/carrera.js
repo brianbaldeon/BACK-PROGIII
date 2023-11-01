@@ -62,8 +62,8 @@ crear = async (req, res) => {
         try{
             const carreraNueva = await carreraBD.nuevo(carrera);
             res.status(201).json({estado:'ok', msj:'Carrera creada', dato:carreraNueva});
-        }catch(exec){
-            throw exec;
+        }catch(error){
+            res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
         }
     }
 }
