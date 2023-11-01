@@ -54,6 +54,21 @@ const update = async(idMateria ,{horasSemanales,nombre,tipoMateria})=>{
     return buscarPorId(idMateria); 
 
 }
+const buscarAsignatura = async (nombreAsignatura) => {
+    const consulta = `
+        SELECT idMateria, horasSemanales, nombre,
+        CASE
+            WHEN tipoMateria = 0 THEN 'Virtual'
+            WHEN tipoMateria = 1 THEN 'Presencial'
+            ELSE ''
+        END AS tipoMateria
+        FROM materia
+        WHERE activo = 1 AND LOWER(nombre) LIKE LOWER(?)`;
+
+    const [materias] = await conexion.query(consulta, [`%${nombreAsignatura}%`]);
+
+    return materias;
+};
 
 
 module.exports = {
@@ -61,5 +76,6 @@ module.exports = {
     buscarTodos,
     eliminar,
     nuevo,
-    update
+    update,
+    buscarAsignatura,
 }

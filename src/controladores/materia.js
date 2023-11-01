@@ -89,6 +89,22 @@ update = async(req,res)=>{
         res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } })
     }
 }
+buscarAsignatura = async (req, res) => {
+    try {
+      const nombreAsignatura = req.params.nombreAsignatura;
+  
+      if (!nombreAsignatura) {
+        res.status(400).json({ estado: 'FALLO', msj: 'Falta el nombre de la materia' });
+      }
+  
+      const materia = await materiaBD.buscarAsignatura(nombreAsignatura);
+      res.json({ estado: 'OK', dato: materia });
+    
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ estado: 'FALLO', msj: 'Error en el servidor' });
+    }
+  };
 
 
 module.exports = {
@@ -96,6 +112,7 @@ module.exports = {
     buscarTodos,
     eliminar,
     crear, 
-    update
+    update,
+    buscarAsignatura
 }
 

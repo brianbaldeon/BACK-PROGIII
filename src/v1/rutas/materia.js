@@ -1,5 +1,6 @@
 const {Router} = require('express');
-const { buscarPorId, buscarTodos,eliminar, crear, update }  = require('../../controladores/materia');
+const { buscarPorId, buscarTodos,eliminar, crear, update,buscarAsignatura }  = require('../../controladores/materia');
+
 
 const router = Router();
 
@@ -14,6 +15,9 @@ router.put('/materias/:idMateria', update);
 
 //buscar
 router.get('/materias', buscarTodos);
+
+//buscar por Nombre
+router.get('/materias/asignatura/:nombreAsignatura', buscarAsignatura);
 
 //buscarPorID
 router.get('/materias/:idMateria', buscarPorId);
