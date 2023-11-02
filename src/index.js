@@ -43,7 +43,7 @@ app.get('/archivos/:nombreArchivo', (req, res) => {
 
 
 const { esUsuarioBedel } = require('./middlewares/esUsuarioBedel');
-const { esUsuarioDecano } = require('./middlewares/esUsuarioDecano');
+// const { esUsuarioDecano } = require('./middlewares/esUsuarioDecano');
 //Rutas de la api
 const v1Publico = require('./v1/rutas/publico');
 const v1Auth = require('./v1/rutas/auth');
@@ -60,7 +60,6 @@ const v1Estadistica = require ('./v1/rutas/estadistica');
 app.use('/api/v1/publico', v1Publico);
 app.use('/api/v1/auth', v1Auth);
 app.use('/api/v1/estudiante', [passport.authenticate('jwt', {session: false}), esUsuarioBedel],v1Estudiante);
-// app.use('/api/v1/estudiante', v1Estudiante);
 app.use('/api/v1/materia', v1Materia);
 app.use('/api/v1/carrera', v1Carrera)
 app.use('/api/v1/estadistica', v1Estadistica);
