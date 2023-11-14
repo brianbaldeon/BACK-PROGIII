@@ -22,7 +22,7 @@ const esUsuarioBedel = async (req, res, next) => {
         console.log({data})
          // tipoUsuario = 1 | bedel
        
-        if (data.tipoUsuario != 0) {
+        if (data.tipoUsuario != 1) {
             return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
         }
 
