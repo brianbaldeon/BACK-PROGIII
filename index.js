@@ -78,8 +78,3 @@ app.use ('/api/v1/estadistica', [passport.authenticate('jwt', {session: false}),
 app.listen(process.env.PUERTO, () => {
     console.log('APP listening on '+ process.env.PUERTO);
 });
-
-
-// http://localhost:3005/api/v1/estudianteCarrera/carrera/:idCarrera/estudiante/:idEstudiante
-
-// http://localhost:3005/api/v1/estudianteMateria/:idCarrera/materia/:idMateria/estudiante/:idEstudiante
