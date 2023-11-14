@@ -65,11 +65,11 @@ const v1carreraMateria = require('./v1/rutas/carreraMateria');
 app.use('/api/v1/publico', v1Publico);
 app.use('/api/v1/auth', v1Auth);
 app.use('/api/v1/estudiante', [passport.authenticate('jwt', {session: false}), esUsuarioBedel],v1Estudiante);
-app.use('/api/v1/materia', v1Materia);
-app.use('/api/v1/carrera', v1Carrera)
-app.use('/api/v1/estudianteCarrera' , v1estudianteCarrera)
-app.use('/api/v1/estudianteMateria', v1estudianteMateria)
-app.use('/api/v1/carreraMateria' , v1carreraMateria)
+app.use('/api/v1/materia',[passport.authenticate('jwt', {session: false}), esUsuarioBedel], v1Materia);
+app.use('/api/v1/carrera',[passport.authenticate('jwt', {session: false}), esUsuarioBedel], v1Carrera)
+app.use('/api/v1/estudianteCarrera' , [passport.authenticate('jwt', {session: false}), esUsuarioBedel], v1estudianteCarrera)
+app.use('/api/v1/estudianteMateria',[passport.authenticate('jwt', {session: false}), esUsuarioBedel], v1estudianteMateria)
+app.use('/api/v1/carreraMateria' ,[passport.authenticate('jwt', {session: false}), esUsuarioBedel], v1carreraMateria)
 app.use ('/api/v1/estadistica', [passport.authenticate('jwt', {session: false}), esUsuarioDecano],v1Estadistica );
 
 
@@ -80,6 +80,3 @@ app.listen(process.env.PUERTO, () => {
 });
 
 
-// http://localhost:3005/api/v1/estudianteCarrera/carrera/:idCarrera/estudiante/:idEstudiante
-
-// http://localhost:3005/api/v1/estudianteMateria/:idCarrera/materia/:idMateria/estudiante/:idEstudiante

@@ -20,9 +20,9 @@ const esUsuarioDecano = async (req, res, next) => {
         const data = await usuarioDB.buscarPorId(usuario.idUsuario);
 
          
-        // tipoUsuario = 2 | decano
+        // tipoUsuario = 0 | decano
        
-        if (data.tipoUsuario != 1) {
+        if (data.tipoUsuario != 0) {
             return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
         }
 
