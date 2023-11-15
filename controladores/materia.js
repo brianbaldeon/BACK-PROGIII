@@ -1,5 +1,3 @@
-//buscar por queryparams-- por ID = get(estudiantes/:id
-
 const materiaBD = require('../baseDatos/materiaBD');
 
 buscarPorId = async(req, res) => {
@@ -13,8 +11,8 @@ buscarPorId = async(req, res) => {
         const [materia] = await materiaBD.buscarPorId(idMateria);
         res.json({estado:'OK', dato: materia});
 
-    }catch (error){
-        // res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
+    }catch (exec){
+        throw exec;
     }
 }
 
@@ -38,8 +36,8 @@ eliminar = async (req, res) => {
         try{
             await materiaBD.eliminar(idMateria);
             res.status(200).json({estado:'OK', msj:'Materia eliminada'});
-        }catch (error){
-            // res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
+        }catch (exec){
+            throw exec;
         }
     }
 }
@@ -48,22 +46,17 @@ crear = async (req, res) => {
 
     const {horasSemanales, nombre, tipoMateria} = req.body;
 
-    if(!horasSemanales || !nombre || !tipoMateria){
-        res.status(404).json({estado:'FALLA', msj:'Faltan datos obligatorios'});
-    }else{
-        const materia = {
-            horasSemanales: horasSemanales,
-            nombre:nombre, 
-            tipoMateria: tipoMateria
-        }; 
+    const materia = {
+        horasSemanales: horasSemanales,
+        nombre:nombre, 
+        tipoMateria: tipoMateria
+    }; 
 
-
-        try{
-            const materiaNueva = await materiaBD.nuevo(materia);
-            res.status(201).json({estado:'ok', msj:'Materia creada', dato:materiaNueva});
-        }catch(exec){
-            throw exec;
-        }
+    try{
+        const materiaNueva = await materiaBD.nuevo(materia);
+        res.status(201).json({estado:'ok', msj:'Materia creada', dato:materiaNueva});
+    }catch(exec){
+        throw exec;
     }
 }
 
@@ -85,8 +78,8 @@ update = async(req,res)=>{
     try {
         const materiaActualizada= await materiaBD.update(idMateria, body);
         res.send({ status: "OK", data: materiaActualizada });
-    } catch (error) {
-        // res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } })
+    } catch (exec) {
+        throw exec;
     }
 }
 buscarAsignatura = async (req, res) => {

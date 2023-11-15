@@ -5,7 +5,6 @@ const estudianteCarrera  = async (req, res) => {
     const idCarrera = req.params.idCarrera;
     const idEstudiante = req.params.idEstudiante;
     try{
-        // const solo si lo quiero devolver al cliente...
         await estudianteCarreraBD.estudianteCarrera(idCarrera,idEstudiante);
         res.status(201).json({estado:'OK', msj:'Inscripción Realizada'});
     }catch (error){
@@ -22,7 +21,6 @@ const obtenerNoInscriptos= async (req,res)=>{
     const idCarrera = req.params.idCarrera;
 
     try{
-        // const solo si lo quiero devolver al cliente...
         const estudiantes = await estudianteCarreraBD.obtenerNoInscriptos(idCarrera);
         res.status(200).json({estado:'OK' ,dato: estudiantes});
     }catch (error){
@@ -35,7 +33,6 @@ const obtenerNoInscriptos= async (req,res)=>{
 const obtenerInscriptos = async (req,res)=>{
     const idCarrera = req.params.idCarrera;
     try{
-        // const solo si lo quiero devolver al cliente...
         const estudiantes = await estudianteCarreraBD.obtenerInscriptos(idCarrera);
         res.status(200).json({estado:'OK' ,dato: estudiantes});
     }catch (error){
@@ -48,7 +45,6 @@ const bajaEstudianteCarrera = async (req, res)=>{
     const idEstudiante = req.params.idEstudiante;
     const idCarrera = req.params.idCarrera;
     try{
-        // const solo si lo quiero devolver al cliente...
         await estudianteCarreraBD.bajaEstudianteCarreraBD(idEstudiante,idCarrera);
         res.status(200).json({estado:'OK' });
     }catch (error){

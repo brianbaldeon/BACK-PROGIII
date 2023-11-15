@@ -50,21 +50,17 @@ crear = async (req, res) => {
 
     const {nombre, modalidad} = req.body;
 
-    if(!nombre ||!modalidad){
-        res.status(404).json({estado:'FALLA', msj:'Faltan datos obligatorios'});
-    }else{
-        const carrera = {
-            nombre:nombre, 
-            modalidad: modalidad
-        }; 
+    const carrera = {
+        nombre:nombre, 
+        modalidad: modalidad
+    }; 
 
 
-        try{
-            const carreraNueva = await carreraBD.nuevo(carrera);
-            res.status(201).json({estado:'ok', msj:'Carrera creada', dato:carreraNueva});
-        }catch(error){
-            // res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
-        }
+    try{
+        const carreraNueva = await carreraBD.nuevo(carrera);
+        res.status(201).json({estado:'ok', msj:'Carrera creada', dato:carreraNueva});
+    }catch(exec){
+        throw exec;
     }
 }
 
@@ -86,8 +82,8 @@ update = async(req,res)=>{
     try {
         const carreraActualizada = await carreraBD.update(idCarrera, body);
         res.send({ status: "OK", data: carreraActualizada });
-    } catch (error) {
-        // res.status(error?.status || 500).send({ status: "Fallo", data: { error: error?.message || error } });
+    } catch (exec) {
+        throw exec;
     }
 }
 
