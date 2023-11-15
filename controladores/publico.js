@@ -34,7 +34,7 @@ exports.enviarCorreo = async(req,res)=>{
     })
     const opciones = {
         from : 'Bedelía - Mensajes',
-        to:'baldeonbrian@gmail.com',
+        to:'cristianpereyra9821@gmail.com',
         subject:'CONSULTA',
         html:correoHtml
     }

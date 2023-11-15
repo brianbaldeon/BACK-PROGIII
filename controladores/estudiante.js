@@ -73,32 +73,26 @@ eliminar = async (req, res) => {
 crear = async (req, res) => {
 
     const { dni, nombre, apellido, fechaNacimiento, nacionalidad, correoElectronico, celular } = req.body;
-    // obtengo el archivo que manda el cliente
+
     const file = req.file;
 
-    if (!dni || !nombre || !apellido || !nacionalidad || !correoElectronico.includes('@')) {
-        res.status(404).json({ estado: 'FALLA', msj: 'Faltan datos obligatorios' });
-    } else {
+    const estudiante = {
+        dni: dni,
+        nombre: mayusMinusculaNombreCompleto(nombre),
+        apellido: mayusMinusculaNombreCompleto(apellido),
+        fechaNacimiento: fechaNacimiento,
+        nacionalidad: nacionalidad,
+        correoElectronico: todoMinuscula(correoElectronico),
+        celular: celular
+    };
+    if (file) estudiante.foto = file.filename;
+    else estudiante.foto = 'default.jpg'
 
-        const estudiante = {
-            dni: dni,
-            nombre: mayusMinusculaNombreCompleto(nombre),
-            apellido: mayusMinusculaNombreCompleto(apellido),
-            fechaNacimiento: fechaNacimiento,
-            nacionalidad: nacionalidad,
-            correoElectronico: todoMinuscula(correoElectronico),
-            celular: celular,
-            //  foto:file.filename // guardo en la base de datos el nombre del archivo
-        };
-        if (file) estudiante.foto = file.filename;
-        else estudiante.foto = 'default.jpg'
-
-        try {
-            const estudianteNuevo = await estudianteBD.nuevo(estudiante);
-            res.status(201).json({ estado: 'ok', msj: 'Estudiante creado', dato: estudianteNuevo });
-        } catch (exec) {
-            throw exec;
-        }
+    try {
+        const estudianteNuevo = await estudianteBD.nuevo(estudiante);
+        res.status(201).json({ estado: 'ok', msj: 'Estudiante creado', dato: estudianteNuevo });
+    } catch (exec) {
+        throw exec;
     }
 }
 function mayusMinusculaNombreCompleto(nombreCompleto) {
@@ -124,10 +118,6 @@ update = async (req, res) => {
     const body = req.body
 
     const idEstudiante = req.params.idEstudiante
-    // Agregar validación a Carrera y Materia UPDATE
-    const { dni, nombre, apellido } = req.body
-
-    if (!dni || !nombre || !apellido) return res.status(409).json({ status: "Fallo", mje: "Faltan datos obligatorios" })
 
     if (!idEstudiante) {
         res
@@ -146,8 +136,8 @@ update = async (req, res) => {
     try {
         const estudianteActualizado = await estudianteBD.update(idEstudiante, body);
         res.status(200).json({ status: "OK", msj: 'Estudiante modificado correctamente', data: estudianteActualizado });
-    } catch (error) {
-        // res.status(error?.status || 500).send({ status: "Fallo", mje: 'Hubo un error' })
+    } catch (exec) {
+        throw exec
     }
 }
 
