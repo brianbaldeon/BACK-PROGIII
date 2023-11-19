@@ -70,29 +70,34 @@ eliminar = async (req, res) => {
     }
 };
 
+// usamos if porque hay problemas con express-validator al momento de validarcampos
 crear = async (req, res) => {
 
     const { dni, nombre, apellido, fechaNacimiento, nacionalidad, correoElectronico, celular } = req.body;
-
     const file = req.file;
 
-    const estudiante = {
-        dni: dni,
-        nombre: mayusMinusculaNombreCompleto(nombre),
-        apellido: mayusMinusculaNombreCompleto(apellido),
-        fechaNacimiento: fechaNacimiento,
-        nacionalidad: nacionalidad,
-        correoElectronico: todoMinuscula(correoElectronico),
-        celular: celular
-    };
-    if (file) estudiante.foto = file.filename;
-    else estudiante.foto = 'default.jpg'
+    if (!dni || !nombre || !apellido || !nacionalidad || !correoElectronico.includes('@')) {
+        res.status(404).json({ estado: 'FALLA', msj: 'Faltan datos obligatorios' });
+    } else {
 
-    try {
-        const estudianteNuevo = await estudianteBD.nuevo(estudiante);
-        res.status(201).json({ estado: 'ok', msj: 'Estudiante creado', dato: estudianteNuevo });
-    } catch (exec) {
-        throw exec;
+        const estudiante = {
+            dni: dni,
+            nombre: mayusMinusculaNombreCompleto(nombre),
+            apellido: mayusMinusculaNombreCompleto(apellido),
+            fechaNacimiento: fechaNacimiento,
+            nacionalidad: nacionalidad,
+            correoElectronico: todoMinuscula(correoElectronico),
+            celular: celular,
+        };
+        if (file) estudiante.foto = file.filename;
+        else estudiante.foto = 'default.jpg'
+
+        try {
+            const estudianteNuevo = await estudianteBD.nuevo(estudiante);
+            res.status(201).json({ estado: 'ok', msj: 'Estudiante creado', dato: estudianteNuevo });
+        } catch (exec) {
+            throw exec;
+        }
     }
 }
 function mayusMinusculaNombreCompleto(nombreCompleto) {
