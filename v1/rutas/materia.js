@@ -15,10 +15,14 @@ router.post('/materias',[
     ], crear);
 
 //eliminar
-router.delete('/materias/:idMateria', eliminar);
+router.delete('/materias/:idMateria', [
+    check('idMateria', 'El id de materia es requerido').not().isEmpty(),
+        validarCampos
+], eliminar);
 
 //actualizar
 router.put('/materias/:idMateria', [
+    check('idMateria', 'El id de materia es requerido').not().isEmpty(),
     check('horasSemanales','La cantidad de horas semanales  es requerida').not().isEmpty(),
     check('nombre','El nombre es requerido').not().isEmpty(),
     check('tipoMateria','El email es requerido').not().isEmpty(),
@@ -29,10 +33,16 @@ router.put('/materias/:idMateria', [
 router.get('/materias', buscarTodos);
 
 //buscar por Nombre
-router.get('/materias/asignatura/:nombreAsignatura', buscarAsignatura);
+router.get('/materias/asignatura/:nombreAsignatura', [
+    check('nombreMateria', 'El nombre de materia es requerido').not().isEmpty(),
+        validarCampos
+], buscarAsignatura);
 
 //buscarPorID
-router.get('/materias/:idMateria', buscarPorId);
+router.get('/materias/:idMateria', [
+    check('idMateria', 'El id de materia es requerido').not().isEmpty(),
+        validarCampos
+], buscarPorId);
 
 
 

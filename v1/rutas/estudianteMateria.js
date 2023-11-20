@@ -14,9 +14,25 @@ router
         check('idMateria','La materia es requerida').not().isEmpty(),
             validarCampos   
         ], controlador.estudianteMateria)
-    .delete('/carrera/:idCarrera/materia/:idMateria/estudiante/:idEstudiante', controlador.estudianteBajaMateria)
-    .get('/carrera/:idCarrera/materia/:idMateria/inscriptos', controlador.obtenerInscriptos)
-    .get('/carrera/:idCarrera/materia/:idMateria/noInscriptos', controlador.obtenerNoInscriptos)
-    .get('/materia/:idMateria/inscripciones', controlador.obtenerInscripciones)
+    .delete('/carrera/:idCarrera/materia/:idMateria/estudiante/:idEstudiante', [
+        check('idCarrera', 'El id de carrera es requerido').not().isEmpty(),
+        check('idMateria', 'El id de materia es requerido').not().isEmpty(),
+        check('idEstudiante', 'El id de estudiante es requerido').not().isEmpty(),
+            validarCampos
+    ], controlador.estudianteBajaMateria)
+    .get('/carrera/:idCarrera/materia/:idMateria/inscriptos', [
+        check('idCarrera', 'El id de carrera es requerido').not().isEmpty(),
+        check('idMateria', 'El id de materia es requerido').not().isEmpty(),
+            validarCampos
+    ], controlador.obtenerInscriptos)
+    .get('/carrera/:idCarrera/materia/:idMateria/noInscriptos', [
+        check('idCarrera', 'El id de carrera es requerido').not().isEmpty(),
+        check('idMateria', 'El id de materia es requerido').not().isEmpty(),
+            validarCampos
+    ], controlador.obtenerNoInscriptos)
+    .get('/materia/:idMateria/inscripciones', [
+        check('idMateria', 'El id de materia es requerido').not().isEmpty(),
+            validarCampos
+    ], controlador.obtenerInscripciones)
 
 module.exports = router;

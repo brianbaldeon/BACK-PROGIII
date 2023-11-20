@@ -10,10 +10,14 @@ const router = Router();
 router.post('/estudiantes', upload, crear);
 
 //eliminar
-router.delete('/estudiantes/:idEstudiante', eliminar);
+router.delete('/estudiantes/:idEstudiante', [
+    check('idEstudiante', 'El id de estudiante es requerido').not().isEmpty(),
+        validarCampos
+], eliminar);
 
 //actualizar
 router.put('/estudiantes/:idEstudiante', [
+    check('idEstudiante', 'El id de estudiante es requerido').not().isEmpty(),
     check('dni', 'El dni es requerido').not().isEmpty(),
     check('nombre','El nombre es requerido').not().isEmpty(),
     check('apellido','El apellido es requerido').not().isEmpty(),
@@ -28,13 +32,22 @@ router.put('/estudiantes/:idEstudiante', [
 router.get('/estudiantes', buscarTodos);
 
 //Buscar por nombre
-router.get('/estudiantes/search/:nombreEstudiante', buscarNombre)
+router.get('/estudiantes/search/:nombreEstudiante', [
+    check('nombreEstudiante', 'El nombre de estudiante es requerido').not().isEmpty(),
+        validarCampos
+], buscarNombre)
 
 //buscar por dni
-router.get('/estudiantes/dni/:dniEstudiante', buscarDni)
+router.get('/estudiantes/dni/:dniEstudiante', [
+    check('dniEstudiante', 'El dni de estudiante es requerido').not().isEmpty(),
+        validarCampos
+], buscarDni)
 
 //buscarPorID
-router.get('/estudiantes/:idEstudiante', buscarPorId);
+router.get('/estudiantes/:idEstudiante', [
+    check('idEstudiante', 'El id de estudiante es requerido').not().isEmpty(),
+        validarCampos
+], buscarPorId);
 
 
 
